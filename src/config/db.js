@@ -15,7 +15,7 @@ dotenv.config();
 // Create pool with SSL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URI,
-  ssl: { rejectUnauthorized: false },
+  ssl: true,
   connectionTimeoutMillis: 10000,
 });
 
