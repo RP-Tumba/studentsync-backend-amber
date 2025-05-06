@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
 
 // api routes
 app.use("/api/v1", routes);
+app.use
 
 // Middleware to handle 404 errors
 app.use((req, res, next) => {
@@ -33,7 +34,14 @@ app.use((req, res, next) => {
 // Default error handler
 app.use(errorResponse);
 
+//fetch data of student
+// app.get('/selectData', (req, res)=>{
+//   const fetchData = 'select * from student';
+//   co
+// })
+
 // listen for incoming requests
+
 app.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
 });

@@ -23,3 +23,19 @@ export const getAllStudents = async (req, res) => {
     });
   }
 };
+ export const getStudent = async (req, res) =>{
+  const id = req.params.id
+  const fetchId = 'select * from students WHERE id = $1'
+try {
+  const result = await pool.query(fetchId, [id]);
+  
+  if(result.rows.length===0){
+    return res.status(404).json({success:false,message:`the student with this id ${id} is not found`});
+  }
+  res.status(200).json(result.rows)
+} catch (error) {
+  console.err('database error',err)
+  res.status(500).send('failed to fetch student')
+}
+ }
+ 
