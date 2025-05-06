@@ -50,11 +50,11 @@ export const deleteStudent = async (req, res) => {
             })
               
   } catch (err) {
-    
+                  // server error
           logger.error(err.message);
           res.status(500).json({
             MessageStatus: false,
-            message: `An unexpected error occurred in DELETE/STUDENT, ${err.message}`,
+            message: `Server error occurred. Unable to delete a student, ${err.message}`,
           });
   }
   
