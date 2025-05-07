@@ -39,3 +39,19 @@ try {
 }
  }
  
+export const getStudentByName = async(req, res)=>{
+  const {first_name} = req.params
+
+  const fetchNameQuery = 'SELECT * FROM students WHERE LOWER(first_name) LIKE LOWER($1)'
+  
+  try {
+    const resultName = await pool.query(fetchNameQuery,[`%${first_name}%`])
+    if(resultName.rows.length===0){
+      return res.status(404).json({success:false, message:`the student with name of ${first_name} is not found` })
+    }
+    res.send(resultName.rows)
+  } catch (error) {
+    console.error('database fail',error)
+    res.status(500).json('failed to fetch student name')
+  }
+}

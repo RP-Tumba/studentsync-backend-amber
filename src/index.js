@@ -34,11 +34,6 @@ app.use((req, res, next) => {
 // Default error handler
 app.use(errorResponse);
 
-//fetch data of student
-// app.get('/selectData', (req, res)=>{
-//   const fetchData = 'select * from student';
-//   co
-// })
 
 // listen for incoming requests
 
