@@ -59,3 +59,19 @@ export const deleteStudent = async (req, res) => {
   }
   
 };
+
+//Add new Student
+export const createStudent = async (req, res) => {
+  const { first_name, last_name, student_id, email, date_of_birth, contact_number, enrollment_date, profile_picture } = req.body;
+  try {
+    const result = await pool.query(
+      `INSERT INTO students (first_name, last_name, student_id, email, date_of_birth, contact_number, enrollment_date, profile_picture)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+       RETURNING *`,
+      [first_name, last_name, student_id, email, date_of_birth, contact_number, enrollment_date, profile_picture]
+    );
+    res.status(201).json(result.rows);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating student', error: error.message });
+  }
+};
