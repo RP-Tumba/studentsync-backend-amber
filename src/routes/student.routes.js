@@ -16,14 +16,10 @@ import { deleteStudent, getAllStudents,createStudent,updateStudent,searchbyname,
 const router = express.Router();
 
 router.get("/", getAllStudents);
-
 router.get("/:id", getStudent);
 router.get('/search/:first_name', getStudentByName);
-
 router.delete("/:id",deleteStudent);
 router.get("/search",searchbyname);
-
-
 
 router.put("/:id",updateStudent)
 
