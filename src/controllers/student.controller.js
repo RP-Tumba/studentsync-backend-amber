@@ -31,7 +31,7 @@ export const getspe= async (req,res)=>{
   const check = 'SELECT * FROM students WHERE id=$1';
   const checking= await pool.query(check,[id]);
   if (checking.rows.length===0){
-   return res.status(404).json({message:"no data found "})
+    res.status(404).json({message:"no data found "})
   }
   return res.status(200).json({
     message:"result",
