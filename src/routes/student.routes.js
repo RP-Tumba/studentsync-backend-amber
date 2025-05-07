@@ -8,7 +8,7 @@ import express from "express";
 
 
 
-import { deleteStudent, getAllStudents,createStudent,updateStudent,searchbyname, getStudent, getStudentByName} from "../controllers/student.controller.js";
+import { deleteStudent, getAllStudents,createStudent,updateStudent,searchbyname, getStudent} from "../controllers/student.controller.js";
 
 
 
@@ -17,7 +17,6 @@ const router = express.Router();
 
 router.get("/", getAllStudents);
 router.get("/:id", getStudent);
-router.get('/search/:first_name', getStudentByName);
 router.delete("/:id",deleteStudent);
 router.get("/search",searchbyname);
 

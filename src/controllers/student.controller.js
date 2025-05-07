@@ -41,25 +41,6 @@ try {
 }
  }
  
-export const getStudentByName = async(req, res)=>{
-  const {first_name} = req.params
-
-  const fetchNameQuery = 'SELECT * FROM students WHERE LOWER(first_name) LIKE LOWER($1)'
-  
-  try {
-    const resultName = await pool.query(fetchNameQuery,[`%${first_name}%`])
-    if(resultName.rows.length===0){
-      return res.status(404).json({success:false, message:`the student with name of ${first_name} is not found` })
-    }
-    res.send(resultName.rows)
-  } catch (error) {
-    console.error('database fail',error)
-    res.status(500).json('failed to fetch student name')
-  }
-}
-
-
-
 export const updateStudent= async(req,res)=>{
   try {
     const {id}=req.params;
@@ -79,7 +60,7 @@ export const updateStudent= async(req,res)=>{
     }
     res.status(200).json({
       success:true,
-      message:"the students data was recorded successfully",
+      message:"the students data was updated successfully",
       data:updatedstudent.rows[0]
     })
   } catch (err) {
@@ -150,7 +131,7 @@ export const searchbyname =  async(req,res) =>{
 
 }
 
-//Add new Student
+
 export const createStudent = async (req, res) => {
   const { first_name, last_name, student_id, email, date_of_birth, contact_number, enrollment_date, profile_picture } = req.body;
   try {
