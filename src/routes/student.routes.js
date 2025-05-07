@@ -13,7 +13,11 @@ const router = express.Router();
 
 router.get("/", getAllStudents);
 
+
 router.put("/:id",updateStudent)
+
+router.delete("/:id",deleteStudent);
+
 
 router.delete("/:id",deleteStudent);
 
