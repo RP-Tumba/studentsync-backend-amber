@@ -10,8 +10,6 @@ import { deleteStudent, getAllStudents } from "../controllers/student.controller
 const router = express.Router();
 
 router.get("/", getAllStudents);
-
-// delete the router
 router.delete("/:id",deleteStudent);
 
 
