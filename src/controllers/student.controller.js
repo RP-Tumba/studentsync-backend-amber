@@ -24,6 +24,7 @@ export const getAllStudents = async (req, res) => {
   }
 };
 
+
  export const getStudent = async (req, res) =>{
   const id = req.params.id
   const fetchId = 'select * from students WHERE id = $1'
@@ -61,13 +62,50 @@ export const deleteStudent = async (req, res) => {
   try {
               const {id} = req.params;
             
+
+
+export const updateStudent= async(req,res)=>{
+  try {
+    const {id}=req.params;
+    const {first_name,last_name,student_id,email,date_of_birth,contact_number,enrollment_date,profile_picture}=req.body;
+      
+     
+    const updateStudent= `UPDATE students SET first_name='${first_name}',last_name ='${last_name}',
+    student_id = '${student_id}',email ='${email}',date_of_birth ='${date_of_birth}',contact_number ='${contact_number}',
+    enrollment_date ='${enrollment_date}',profile_picture ='${profile_picture}' WHERE id= ${id}`
+    const updatedstudent= await pool.query(updateStudent);
+
+    if(updatedstudent.rowCount === 0){
+      return res.status(400).json({
+        success:false,
+        message:"The new student was not recorded"
+      })
+    }
+    res.status(200).json({
+      success:true,
+      message:"the students data was recorded successfully",
+      data:updatedstudent.rows[0]
+    })
+  } catch (err) {
+    res.status(500).json({
+      success:false,
+      message:`An error happened,${err?.message}`
+    })
+  }
+}
+export const deleteStudent = async (req, res) => {
+  try {
+              const {id} = req.params;
+
+          
+
             if(isNaN(id)){
               return res.status(404).json({
                 MessageStatus:false,
                 message:`the id ${id} is invalid`
               })
             };
-         
+
             const checkquery = "SELECT * FROM students WHERE id = $1";
             const checking = await pool.query(checkquery,[id]);
             if(checking.rows.length===0){
@@ -84,7 +122,7 @@ export const deleteStudent = async (req, res) => {
             })
               
   } catch (err) {
-                 
+
           logger.error(err.message);
           res.status(500).json({
             MessageStatus: false,
@@ -94,3 +132,40 @@ export const deleteStudent = async (req, res) => {
   
 };
 
+
+export const searchbyname =  async(req,res) =>{
+ try {
+   const{name} = req.query;
+  const students =  await pool.query(`SELECT * FROM students WHERE CONCAT(first_name,last_name) ILIKE $1 ORDER BY first_name`,[`%${name.trim()}%`]);
+  if(students.rowCount===0){
+    return res.status(404).json({message:`no data related to ${name} found`});
+  }
+
+  res.status(200).json(students.rows);
+ 
+  
+ } catch (error) {
+  logger.error(err.message);
+  res.status(500).json({
+    MessageStatus: false,
+    message: `Server error occurred. Unable to search a student, ${err.message}`,
+  });
+ }
+
+}
+
+//Add new Student
+export const createStudent = async (req, res) => {
+  const { first_name, last_name, student_id, email, date_of_birth, contact_number, enrollment_date, profile_picture } = req.body;
+  try {
+    const result = await pool.query(
+      `INSERT INTO students (first_name, last_name, student_id, email, date_of_birth, contact_number, enrollment_date, profile_picture)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+       RETURNING *`,
+      [first_name, last_name, student_id, email, date_of_birth, contact_number, enrollment_date, profile_picture]
+    );
+    res.status(201).json(result.rows);
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating student', error: error.message });
+  }
+};

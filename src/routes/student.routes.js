@@ -6,7 +6,9 @@
  */
 import express from "express";
 
-import { getAllStudents, getStudent, getStudentByName,deleteStudent } from "../controllers/student.controller.js";
+
+
+import { deleteStudent, getAllStudents,createStudent,updateStudent,searchbyname, getStudent, getStudentByName} from "../controllers/student.controller.js";
 
 
 
@@ -14,10 +16,23 @@ import { getAllStudents, getStudent, getStudentByName,deleteStudent } from "../c
 const router = express.Router();
 
 router.get("/", getAllStudents);
+
 router.get("/:id", getStudent);
 router.get('/search/:first_name', getStudentByName);
-router.delete("/:id",deleteStudent);
 
+router.delete("/:id",deleteStudent);
+router.get("/search",searchbyname);
+
+
+
+router.put("/:id",updateStudent)
+
+router.delete("/:id",deleteStudent);
+router.post('/add',createStudent)
+
+
+
+router.delete("/:id",deleteStudent);
 
 
 
