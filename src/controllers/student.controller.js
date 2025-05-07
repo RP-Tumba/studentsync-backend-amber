@@ -58,10 +58,6 @@ export const getStudentByName = async(req, res)=>{
   }
 }
 
-export const deleteStudent = async (req, res) => {
-  try {
-              const {id} = req.params;
-            
 
 
 export const updateStudent= async(req,res)=>{
