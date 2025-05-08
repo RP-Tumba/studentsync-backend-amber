@@ -25,21 +25,20 @@ export const getAllStudents = async (req, res) => {
 };
 
 
- export const getStudent = async (req, res) =>{
-  const id = req.params.id
-  const fetchId = 'select * from students WHERE id = $1'
-try {
-  const result = await pool.query(fetchId, [id]);
+export const getspe= async (req,res)=>{
   
-  if(result.rows.length===0){
-    return res.status(404).json({success:false,message:`the student with this id ${id} is not found`});
+  const {id} = req.params;
+  const check = 'SELECT * FROM students WHERE id=$1';
+  const checking= await pool.query(check,[id]);
+  if (checking.rows.length===0){
+    res.status(404).json({message:"no data found "})
   }
-  res.status(200).json(result.rows)
-} catch (error) {
-  console.err('database error',err)
-  res.status(500).send('failed to fetch student')
+  res.status(200).json({
+    message:"result",
+    student:checking.rows[0]
+  })
 }
- }
+
  
 export const updateStudent= async(req,res)=>{
   try {
