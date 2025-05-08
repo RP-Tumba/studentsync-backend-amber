@@ -19,11 +19,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Welcome to Kepler Capstone Backend!");
 });
-
 // api routes
 app.use("/api/v1", routes);
-app.use
-
 // Middleware to handle 404 errors
 app.use((req, res, next) => {
   const err = new Error("Route not found");
