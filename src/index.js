@@ -19,10 +19,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Welcome to Kepler Capstone Backend!");
 });
-
 // api routes
 app.use("/api/v1", routes);
-
 // Middleware to handle 404 errors
 app.use((req, res, next) => {
   const err = new Error("Route not found");
@@ -33,7 +31,9 @@ app.use((req, res, next) => {
 // Default error handler
 app.use(errorResponse);
 
+
 // listen for incoming requests
+
 app.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}`);
 });

@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "nodemon src/index.js",
     "dev": "nodemon src/index.js",
     "format": "prettier --write ."
   },
@@ -22,14 +22,16 @@
   "homepage": "https://github.com/RP-Tumba/studentsync-backend-amber#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "express": "^4.21.2",
+    "express-validator": "^7.2.1",
     "helmet": "^8.0.0",
-    "pg": "^8.13.3",
+    "morgan": "^1.10.0",
+    "pg": "^8.15.6",
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9",
+    "nodemon": "^3.1.10",
     "prettier": "^3.5.3"
   }
 }
